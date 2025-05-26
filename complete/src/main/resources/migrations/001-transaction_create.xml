@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="1" author="Ivo">
+        <createTable tableName="transaction">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="amount" type="decimal(10,2)"/>
+            <column name="source_account_id" type="bigint"/>
+            <column name="target_account_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Ivo">
+        <addForeignKeyConstraint baseTableName="transaction"
+                                 baseColumnNames="source_account_id"
+                                 constraintName="fk_transaction_source_account"
+                                 referencedTableName="country"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="transaction"
+                                 baseColumnNames="target_account_id"
+                                 constraintName="fk_transaction_target_account"
+                                 referencedTableName="country"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

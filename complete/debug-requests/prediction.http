@@ -1,0 +1,9 @@
+###POST-predict-happiness.http
+POST http://localhost:5433/api/happiness/predict
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "countryCode": "FI",
+  "year": 2025
+}

@@ -1,0 +1,9 @@
+###GET-all-happiness.http
+GET http://localhost:5433/api/happiness
+Accept: application/json
+###GET-happiness-top.http
+GET http://localhost:5433/api/happiness/top/2023/10
+Accept: application/json
+###GET-happiness-trends.http
+GET http://localhost:5433/api/happiness/trends/FI
+Accept: application/json

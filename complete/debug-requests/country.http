@@ -1,0 +1,25 @@
+###GET-all-countries.http
+GET http://localhost:5433/api/countries
+Accept: application/json
+###GET-country-by-id.http
+GET http://localhost:5433/api/countries/1
+Accept: application/json
+###POST-create-country.http
+POST http://localhost:5433/api/countries
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Test Country"
+}
+###PUT-update-country.http
+PUT http://localhost:5433/api/countries/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Updated Country Name"
+}
+###DELETE-country.http
+DELETE http://localhost:5433/api/countries/1
+Authorization: Bearer {{token}}
