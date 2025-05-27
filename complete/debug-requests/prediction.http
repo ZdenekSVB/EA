@@ -1,9 +1,53 @@
-###POST-predict-happiness.http
-POST http://localhost:5433/api/happiness/predict
+### GET all predictions (public)
+GET http://localhost:8090/predictions
+Accept: application/json
+
+###
+
+### GET prediction by ID (public)
+GET http://localhost:8090/predictions/1
+Accept: application/json
+
+###
+
+### POST create prediction (requires USER or ADMIN)
+POST http://localhost:8090/predictions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
   "countryCode": "FI",
-  "year": 2025
+  "year": 2025,
+  "predictedScore": 6.789
+}
+
+###
+
+### PUT update prediction (requires USER or ADMIN)
+PUT http://localhost:8090/predictions/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "countryCode": "FI",
+  "year": 2025,
+  "predictedScore": 7.000
+}
+
+###
+
+### DELETE prediction (requires ADMIN)
+DELETE http://localhost:8090/predictions/1
+Authorization: Bearer {{token}}
+
+###
+
+### POST predict happiness (predict endpoint)
+POST http://localhost:8090/predictions/predict
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "countryCode": "FI",
+  "year": 2026
 }

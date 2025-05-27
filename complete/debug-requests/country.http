@@ -1,25 +1,39 @@
-###GET-all-countries.http
-GET http://localhost:5433/api/countries
+### GET all countries (public)
+GET http://localhost:8090/countries
 Accept: application/json
-###GET-country-by-id.http
-GET http://localhost:5433/api/countries/1
+
+###
+
+### GET country by ID (public)
+GET http://localhost:8090/countries/1
 Accept: application/json
-###POST-create-country.http
-POST http://localhost:5433/api/countries
+
+###
+
+### POST create new country (requires USER or ADMIN)
+POST http://localhost:8090/countries
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
   "name": "Test Country"
 }
-###PUT-update-country.http
-PUT http://localhost:5433/api/countries/1
+
+###
+
+### PUT update country (requires USER or ADMIN)
+PUT http://localhost:8090/countries/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
   "name": "Updated Country Name"
 }
-###DELETE-country.http
-DELETE http://localhost:5433/api/countries/1
+
+###
+
+### DELETE country (requires ADMIN)
+DELETE http://localhost:8090/countries/1
 Authorization: Bearer {{token}}
+
+###

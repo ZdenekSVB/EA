@@ -26,8 +26,9 @@ public class Prediction {
     private double predictedScore;
 
     @ManyToOne
-    @JoinColumn(name = "country_code")
+    @JoinColumn(name = "country_id") // <- přesně jak je v migraci
     private Country country;
+
 
     // Gettery, settery, konstruktor
 }

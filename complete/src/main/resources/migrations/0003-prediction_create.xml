@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="0003-prediction_create" author="Ivo">
+        <createTable tableName="prediction">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_prediction_country" references="country(id)"/>
+            </column>
+            <column name="year" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="predicted_score" type="decimal(5,3)"/>
+        </createTable>
+
+        <createIndex tableName="prediction" indexName="idx_prediction_country_year">
+            <column name="country_id"/>
+            <column name="year"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

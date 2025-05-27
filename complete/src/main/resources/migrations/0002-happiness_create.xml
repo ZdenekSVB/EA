@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="0002-happiness_create" author="Ivo">
+        <createTable tableName="happiness">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_happiness_country" references="country(id)"/>
+            </column>
+            <column name="year" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rank" type="int"/>
+            <column name="happiness_score" type="decimal(5,3)"/>
+            <column name="upper_whisker" type="decimal(5,3)"/>
+            <column name="lower_whisker" type="decimal(5,3)"/>
+            <column name="gdp" type="decimal(5,3)"/>
+            <column name="social_support" type="decimal(5,3)"/>
+            <column name="healthy_life_expectancy" type="decimal(5,3)"/>
+            <column name="freedom" type="decimal(5,3)"/>
+            <column name="generosity" type="decimal(5,3)"/>
+            <column name="corruption" type="decimal(5,3)"/>
+            <column name="dystopia_residual" type="decimal(5,3)"/>
+        </createTable>
+
+        <createIndex tableName="happiness" indexName="idx_happiness_country_year">
+            <column name="country_id"/>
+            <column name="year"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
