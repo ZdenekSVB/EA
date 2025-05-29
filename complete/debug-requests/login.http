@@ -1,0 +1,9 @@
+### 🔐 Get token for any user
+# @name login
+POST http://localhost:8091/realms/EA/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=web-app&
+username={{username}}&
+password={{password}}&
+grant_type=password

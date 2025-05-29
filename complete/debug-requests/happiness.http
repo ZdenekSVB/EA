@@ -1,26 +1,25 @@
-
 ### GET all happiness records (public)
-GET http://localhost:8090/happiness
+GET {{host}}/happiness
 Accept: application/json
 
 ###
 
 ### GET top happiness countries for year (public)
-GET http://localhost:8090/happiness/top/2023/10
+GET {{host}}/happiness/top/2023/10
 Accept: application/json
 
 ###
 
 ### GET happiness trends for country (public)
-GET http://localhost:8090/happiness/trends/FI
+GET {{host}}/happiness/trends/FI
 Accept: application/json
 
 ###
 
 ### POST predict happiness (requires USER or ADMIN)
-POST http://localhost:8090/happiness/predict
+POST {{host}}/happiness/predict
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token_user}}
 
 {
   "countryCode": "FI",

@@ -1,53 +1,17 @@
-### GET all predictions (public)
-GET http://localhost:8090/predictions
-Accept: application/json
 
-###
-
-### GET prediction by ID (public)
-GET http://localhost:8090/predictions/1
-Accept: application/json
-
-###
-
-### POST create prediction (requires USER or ADMIN)
-POST http://localhost:8090/predictions
+### POST prediction (USER or ADMIN)
+POST {{host}}/predictions
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token_user}}
 
 {
   "countryCode": "FI",
-  "year": 2025,
-  "predictedScore": 6.789
+  "year": 2026,
+  "predictedScore": 7.123
 }
 
 ###
 
-### PUT update prediction (requires USER or ADMIN)
-PUT http://localhost:8090/predictions/1
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-  "countryCode": "FI",
-  "year": 2025,
-  "predictedScore": 7.000
-}
-
-###
-
-### DELETE prediction (requires ADMIN)
-DELETE http://localhost:8090/predictions/1
-Authorization: Bearer {{token}}
-
-###
-
-### POST predict happiness (predict endpoint)
-POST http://localhost:8090/predictions/predict
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-  "countryCode": "FI",
-  "year": 2026
-}
+### DELETE prediction (ADMIN)
+DELETE {{host}}/predictions/1
+Authorization: Bearer {{token_admin}}

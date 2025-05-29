@@ -1,19 +1,13 @@
 ### GET all countries (public)
-GET http://localhost:8090/countries
+GET {{host}}/countries
 Accept: application/json
 
 ###
 
-### GET country by ID (public)
-GET http://localhost:8090/countries/1
-Accept: application/json
-
-###
-
-### POST create new country (requires USER or ADMIN)
-POST http://localhost:8090/countries
+### POST create new country (USER or ADMIN)
+POST {{host}}/countries
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token_user}}
 
 {
   "name": "Test Country"
@@ -21,19 +15,19 @@ Authorization: Bearer {{token}}
 
 ###
 
-### PUT update country (requires USER or ADMIN)
-PUT http://localhost:8090/countries/1
+### PUT update country (USER or ADMIN)
+PUT {{host}}/countries/2
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token_user}}
 
 {
-  "name": "Updated Country Name"
+  "name": "Updated Country"
 }
 
 ###
 
-### DELETE country (requires ADMIN)
-DELETE http://localhost:8090/countries/1
-Authorization: Bearer {{token}}
+### DELETE country (ADMIN only)
+DELETE {{host}}/countries/2
+Authorization: Bearer {{token_admin}}
 
 ###
