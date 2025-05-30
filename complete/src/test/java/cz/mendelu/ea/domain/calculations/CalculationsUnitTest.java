@@ -1,5 +1,3 @@
-// Kompletní unit testy pro všech 8 kalkulací
-
 package cz.mendelu.ea.domain.calculations;
 
 import cz.mendelu.ea.domain.happiness.Happiness;
@@ -16,8 +14,13 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for all 8 analytics calculations in the calculations module.
+ * Each test checks the expected output for a specific calculation class using mocked data.
+ */
 public class CalculationsUnitTest {
 
+    /** Test for correlation between GDP and happiness score. */
     @Test
     void testCorrelationGdpScoreCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -32,6 +35,7 @@ public class CalculationsUnitTest {
         assertTrue(result.containsKey("correlation"));
     }
 
+    /** Test for average happiness score per year calculation. */
     @Test
     void testAverageScorePerYearCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -47,6 +51,7 @@ public class CalculationsUnitTest {
         assertEquals(5.0, result.get(2020));
     }
 
+    /** Test for detection of stable countries in happiness scores. */
     @Test
     void testStableCountriesCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -65,6 +70,7 @@ public class CalculationsUnitTest {
         assertTrue(result.contains("Stableland"));
     }
 
+    /** Test for calculation of the country with top happiness score change between years. */
     @Test
     void testTopCountriesChangeCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -81,6 +87,7 @@ public class CalculationsUnitTest {
         assertEquals(4.0, result.get("change"));
     }
 
+    /** Test for best improvement in happiness score over 5 years. */
     @Test
     void testBestImprovement5YCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -97,6 +104,7 @@ public class CalculationsUnitTest {
         assertEquals(4.5, result.get("score_diff"));
     }
 
+    /** Test for happiness score trend calculation for a given country. */
     @Test
     void testScoreTrendCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -117,6 +125,7 @@ public class CalculationsUnitTest {
         assertEquals(6.0, result.get("2021"));
     }
 
+    /** Test for decomposition of the happiness score into components. */
     @Test
     void testScoreDecompositionCalculation() {
         HappinessService service = mock(HappinessService.class);
@@ -137,6 +146,7 @@ public class CalculationsUnitTest {
         assertEquals(0.5, result.get("Residual"));
     }
 
+    /** Test for min/max extremes in happiness score for a given year. */
     @Test
     void testScoreExtremesCalculation() {
         HappinessService service = mock(HappinessService.class);

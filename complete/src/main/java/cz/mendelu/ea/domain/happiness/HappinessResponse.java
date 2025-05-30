@@ -1,7 +1,14 @@
+// ===============================
+// HappinessResponse.java (DTO for response)
+// ===============================
+
 package cz.mendelu.ea.domain.happiness;
 
 import lombok.Data;
 
+/**
+ * DTO representing happiness data in API responses.
+ */
 @Data
 public class HappinessResponse {
 
@@ -13,6 +20,9 @@ public class HappinessResponse {
     private Double gdp;
     private Double socialSupport;
 
+    /**
+     * Create response DTO from Happiness entity.
+     */
     public HappinessResponse(Happiness happiness) {
         this.id = happiness.getId();
         this.countryId = happiness.getCountry().getId();
