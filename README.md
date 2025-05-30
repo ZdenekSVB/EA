@@ -1,29 +1,26 @@
-# README #
+# EA REST API
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Hlavní entity
+- **Country**: stát (unikátní jméno)
+- **Happiness**: data o štěstí pro stát a rok (odkaz na Country)
+- **Prediction**: predikce štěstí pro stát a rok (odkaz na Country)
 
-### What is this repository for? ###
+## Endpointy
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+- `GET /countries` – seznam států
+- `POST /countries` – vytvoření státu
+- `GET /happiness` – seznam happiness záznamů
+- `POST /happiness` – vytvoření happiness
+- `GET /predictions` – seznam predikcí
+- `POST /predictions` – vytvoření predikce
 
-### How do I get set up? ###
+**Autorizace:** Bearer token přes Keycloak (admin/user role)
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## Swagger
+Po spuštění [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
-### Contribution guidelines ###
+## Databáze
+- Postgres, kontejnerizováno v docker-compose
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+## CI/CD
+- Testy: spustitelné jedním příkazem `./gradlew test` / `mvn test`

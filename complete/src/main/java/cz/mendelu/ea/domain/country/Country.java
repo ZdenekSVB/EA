@@ -9,6 +9,10 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Entity representing a country.
+ * Has a unique name and a set of happiness records.
+ */
 @Entity
 @Getter
 @Setter
@@ -30,8 +34,10 @@ public class Country {
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Happiness> happinessRecords = new HashSet<>();
 
+    // 💡 Opravený konstruktor – inicializuje set
     public Country(String name) {
         this.name = name;
+        this.happinessRecords = new HashSet<>();
     }
 
     public void addHappinessRecord(Happiness record) {

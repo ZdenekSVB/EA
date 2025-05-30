@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing annual happiness data for a specific country and year.
+ */
 @Entity
 @Data
 @NoArgsConstructor

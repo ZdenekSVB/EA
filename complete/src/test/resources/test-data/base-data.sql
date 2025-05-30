@@ -1,12 +1,25 @@
-INSERT INTO public."user" (id, name, username) VALUES (1, 'Ivo', 'ivo');
-INSERT INTO public."user" (id, name, username) VALUES (2, 'Marie', 'mar777');
+-- Vložení základních států
+INSERT INTO country (name) VALUES ('Czech Republic');
+INSERT INTO country (name) VALUES ('Slovakia');
 
-INSERT INTO public.country (id, balance, name, owner_id) VALUES (1, 100.00, 'My country', 1);
-INSERT INTO public.country (id, balance, name, owner_id) VALUES (2, 200.00, 'Savings for a car', 2);
+-- Happiness pro Czech Republic (2023)
+INSERT INTO happiness (
+    country_id, year, rank, happiness_score, upper_whisker, lower_whisker, gdp, social_support,
+    healthy_life_expectancy, freedom, generosity, corruption, dystopia_residual
+) VALUES (
+             1, 2023, 10, 7.0, 7.2, 6.8, 1.5, 1.0, 0.9, 0.6, 0.1, 0.02, 2.1
+         );
 
-INSERT INTO public."user_accounts" (users_id, accounts_id) VALUES (1, 1);
-INSERT INTO public."user_accounts" (users_id, accounts_id) VALUES (2, 2);
-INSERT INTO public."user_accounts" (users_id, accounts_id) VALUES (1, 2);
+-- Happiness pro Slovakia (2023)
+INSERT INTO happiness (
+    country_id, year, rank, happiness_score, upper_whisker, lower_whisker, gdp, social_support,
+    healthy_life_expectancy, freedom, generosity, corruption, dystopia_residual
+) VALUES (
+             2, 2023, 20, 6.0, 6.2, 5.8, 1.3, 0.9, 0.8, 0.5, 0.2, 0.03, 1.9
+         );
 
-INSERT INTO public.transaction (id, amount, source_account_id, target_account_id) VALUES ('fffd85db-55c5-4620-b7eb-73191a43533e', 50.00, 1, 2);
-INSERT INTO public.transaction (id, amount, source_account_id, target_account_id) VALUES ('5fdba127-ab33-4881-bcf8-096e210fe7c9', 50.00, 2, 1);
+-- Prediction pro Czech Republic (2025)
+INSERT INTO prediction (year, predicted_score, country_id) VALUES (2025, 7.5, 1);
+
+-- Prediction pro Slovakia (2025)
+INSERT INTO prediction (year, predicted_score, country_id) VALUES (2025, 6.3, 2);

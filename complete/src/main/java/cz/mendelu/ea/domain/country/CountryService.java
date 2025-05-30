@@ -1,7 +1,9 @@
 package cz.mendelu.ea.domain.country;
 
+import cz.mendelu.ea.domain.prediction.PredictionRepository;
 import cz.mendelu.ea.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class CountryService {
 
     private final CountryRepository repository;
+    private final PredictionRepository predictionRepository; // přidej to do konstruktoru
 
     public List<Country> getAllCountries() {
         return (List<Country>) repository.findAll();
@@ -39,11 +42,18 @@ public class CountryService {
 
     @Transactional
     public void deleteCountry(Long id) {
-        if (!repository.existsById(id)) {
-            throw new NotFoundException("Country not found with id: " + id);
-        }
-        repository.deleteById(id);
+        Country country = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Country not found with id: " + id));
+
+        // 1) Smazat všechny predikce navázané na tuto zemi
+        predictionRepository.deleteByCountryId(id);
+
+        // 2) Smazat samotnou country (a orphanRemoval se postará o happiness)
+        repository.delete(country);
     }
+
+
+
 
     @Transactional
     public List<Country> saveAll(List<Country> countries) {

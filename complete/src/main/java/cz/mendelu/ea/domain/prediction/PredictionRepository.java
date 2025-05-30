@@ -9,4 +9,5 @@ import java.util.List;
 public interface PredictionRepository extends JpaRepository<Prediction, Long> {
     List<Prediction> findByCountryId(Long countryId);
     List<Prediction> findByYear(int year);
+    void deleteByCountryId(Long countryId); // <--- přidáno!
 }

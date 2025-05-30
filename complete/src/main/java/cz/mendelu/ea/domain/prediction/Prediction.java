@@ -13,6 +13,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Entity representing a prediction of happiness score for a country and year.
+ */
 @Data
 @NoArgsConstructor
 @Entity
