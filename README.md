@@ -67,15 +67,8 @@
 2. **Naklonuj projekt** a otevři ho v **IntelliJ IDEA**.
 3. **Spusť Docker kontejnery:**
 
-   * V kořenovém adresáři spusť `start.bat` (Windows) nebo ekvivalentní příkaz v shellu:
-
-     ```
-     docker-compose up -d
-     ```
-   * Skript `start.bat` automaticky:
-
-     * Spustí PostgreSQL a Keycloak v kontejnerech (podle `docker-compose.yml`).
-     * Počká na Keycloak a stáhne access tokeny pro `admin` a `user`.
+   * V kořenovém adresáři spusť `start.bat` 
+   
 4. **Ověř, že databáze běží na portu `5433`** (z hostu, port v kontejneru je `5432`):
 
    * Připojení:
@@ -84,7 +77,7 @@
      * **Port:** `5433`
      * **Uživatel:** `postgres`
      * **Heslo:** `123`
-5. **Importuj projekt do IntelliJ a spusť hlavní aplikaci** (`Spring Boot Application`).
+5. **Spusť hlavní aplikaci** (`Spring Boot Application`).
 6. **Hotovo!**
 
 ---
@@ -117,7 +110,7 @@ Po spuštění aplikace najdeš kompletní OpenAPI/Swagger dokumentaci zde:
 
 * **Keycloak** je nasazen jako Docker kontejner na portu `8091` (`localhost:8091`)
 * Realm: `ea`
-* Uživatelé: `admin`, `user` (přihlašovací údaje viz `docker-compose.yml`)
+* Uživatelé: `admin` heslo: `admin` , `user` heslo: `user` 
 * Pro každý endpoint je potřeba Bearer token, který získáš z Keycloaku
 
 ---
