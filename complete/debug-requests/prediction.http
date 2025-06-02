@@ -1,17 +1,75 @@
+### 1️⃣ [GET] Všechny predictions
+GET {{host}}/predictions
+Accept: application/json
 
-### POST prediction (USER or ADMIN)
+###
+
+### 2️⃣ [POST] Vytvoř prediction
 POST {{host}}/predictions
 Content-Type: application/json
 Authorization: Bearer {{token_user}}
 
 {
-  "countryCode": "FI",
+  "countryId": 1,
   "year": 2026,
-  "predictedScore": 7.123
+  "score": 7.5,
+  "gdp": 2.3,
+  "socialSupport": 1.05,
+  "lifeExpectancy": 74.9,
+  "freedom": 0.82,
+  "generosity": 0.28,
+  "corruption": 0.12
+}
+
+###
+# Z odpovědi výše si zkopíruj ID nové prediction (např. 789)
+
+### 3️⃣ [GET] Detail prediction
+GET {{host}}/predictions/20
+Accept: application/json
+
+###
+
+### 4️⃣ [PUT] Update prediction
+PUT {{host}}/predictions/20
+Content-Type: application/json
+Authorization: Bearer {{token_user}}
+
+{
+  "countryId": 1,
+  "year": 2026,
+  "score": 7.6,
+  "gdp": 2.4,
+  "socialSupport": 1.08,
+  "lifeExpectancy": 75.1,
+  "freedom": 0.84,
+  "generosity": 0.29,
+  "corruption": 0.13
 }
 
 ###
 
-### DELETE prediction (ADMIN)
-DELETE {{host}}/predictions/1
+### 5️⃣ [DELETE] Smaž prediction
+DELETE {{host}}/predictions/20
 Authorization: Bearer {{token_admin}}
+
+###
+
+### 6️⃣ [POST] Prediction kalkulace (nepersistuje)
+POST {{host}}/predictions/predict
+Content-Type: application/json
+Authorization: Bearer {{token_user}}
+
+{
+  "countryId": 1,
+  "year": 2028,
+  "score": 0,
+  "gdp": 2.4,
+  "socialSupport": 1.08,
+  "lifeExpectancy": 75.1,
+  "freedom": 0.84,
+  "generosity": 0.29,
+  "corruption": 0.13
+}
+
+###

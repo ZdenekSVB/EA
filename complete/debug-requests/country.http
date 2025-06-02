@@ -1,33 +1,40 @@
-### GET all countries (public)
+### 1️⃣ [GET] List všech zemí
 GET {{host}}/countries
 Accept: application/json
 
 ###
 
-### POST create new country (USER or ADMIN)
+### 2️⃣ [POST] Vytvoř novou zemi
 POST {{host}}/countries
 Content-Type: application/json
 Authorization: Bearer {{token_user}}
 
 {
-  "name": "Test Country"
+  "name": "Testlandia_20240602a"
 }
 
 ###
+# Z odpovědi výše si zkopíruj "id", např. 123
 
-### PUT update country (USER or ADMIN)
-PUT {{host}}/countries/2
+### 3️⃣ [GET] Detail země (ID vlož ručně)
+GET {{host}}/countries/123
+Accept: application/json
+
+###
+
+### 4️⃣ [PUT] Aktualizuj zemi (ID vlož ručně)
+PUT {{host}}/countries/123
 Content-Type: application/json
 Authorization: Bearer {{token_user}}
 
 {
-  "name": "Updated Country"
+  "name": "Upraveno_20240602a"
 }
 
 ###
 
-### DELETE country (ADMIN only)
-DELETE {{host}}/countries/2
+### 5️⃣ [DELETE] Smaž tu zemi (ID vlož ručně)
+DELETE {{host}}/countries/123
 Authorization: Bearer {{token_admin}}
 
 ###

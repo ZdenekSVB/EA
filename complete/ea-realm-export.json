@@ -2,6 +2,22 @@
   "realm": "ea",
   "enabled": true,
   "displayName": "EA Realm",
+  "accessTokenLifespan": 28800,
+  "ssoSessionIdleTimeout": 28800,
+  "ssoSessionMaxLifespan": 28800,
+  "offlineSessionIdleTimeout": 2592000,
+  "roles": {
+    "realm": [
+      { "name": "user" },
+      { "name": "admin" }
+    ],
+    "client": {
+      "web-app": [
+        { "name": "user" },
+        { "name": "admin" }
+      ]
+    }
+  },
   "clients": [
     {
       "clientId": "web-app",
@@ -11,19 +27,10 @@
       "standardFlowEnabled": true,
       "redirectUris": ["*"],
       "webOrigins": ["*"],
-      "protocol": "openid-connect"
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true
     }
   ],
-  "roles": {
-    "realm": [
-      {
-        "name": "user"
-      },
-      {
-        "name": "admin"
-      }
-    ]
-  },
   "users": [
     {
       "username": "admin",
@@ -39,7 +46,10 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["user", "admin"]
+      "realmRoles": ["user", "admin"],
+      "clientRoles": {
+        "web-app": ["user", "admin"]
+      }
     },
     {
       "username": "user",
@@ -55,7 +65,10 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["user"]
+      "realmRoles": ["user"],
+      "clientRoles": {
+        "web-app": ["user"]
+      }
     }
   ]
 }

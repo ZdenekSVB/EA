@@ -34,9 +34,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/**").hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/**").hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/**").hasAnyAuthority("user", "admin")
+                        .requestMatchers(HttpMethod.PUT, "/**").hasAnyAuthority("user", "admin")
+                        .requestMatchers(HttpMethod.DELETE, "/**").hasAuthority("admin")
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

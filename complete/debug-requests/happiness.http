@@ -1,27 +1,56 @@
-### GET all happiness records (public)
+### 1️⃣ [GET] Všechny záznamy happiness
 GET {{host}}/happiness
 Accept: application/json
 
 ###
 
-### GET top happiness countries for year (public)
-GET {{host}}/happiness/top/2023/10
-Accept: application/json
-
-###
-
-### GET happiness trends for country (public)
-GET {{host}}/happiness/trends/FI
-Accept: application/json
-
-###
-
-### POST predict happiness (requires USER or ADMIN)
-POST {{host}}/happiness/predict
+### 2️⃣ [POST] Vytvoř nový happiness záznam
+POST {{host}}/happiness
 Content-Type: application/json
 Authorization: Bearer {{token_user}}
 
 {
-  "countryCode": "FI",
-  "year": 2025
+  "countryId": 1,
+  "year": 2025,
+  "score": 7.8,
+  "gdp": 2.5,
+  "socialSupport": 1.1,
+  "lifeExpectancy": 75.3,
+  "freedom": 0.8,
+  "generosity": 0.3,
+  "corruption": 0.1
 }
+
+###
+# Z odpovědi výše si zkopíruj ID nového happiness záznamu, např. 456
+
+### 3️⃣ [GET] Detail happiness záznamu
+GET {{host}}/happiness/456
+Accept: application/json
+
+###
+
+### 4️⃣ [PUT] Update happiness záznamu
+PUT {{host}}/happiness/456
+Content-Type: application/json
+Authorization: Bearer {{token_user}}
+
+{
+  "countryId": 1,
+  "year": 2025,
+  "score": 8.5,
+  "gdp": 3.0,
+  "socialSupport": 1.2,
+  "lifeExpectancy": 76.0,
+  "freedom": 0.85,
+  "generosity": 0.25,
+  "corruption": 0.15
+}
+
+###
+
+### 5️⃣ [DELETE] Smaž happiness záznam
+DELETE {{host}}/happiness/456
+Authorization: Bearer {{token_admin}}
+
+###

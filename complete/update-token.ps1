@@ -34,6 +34,3 @@ $json.dev.$role = $token
 $json | ConvertTo-Json -Depth 10 | Set-Content $jsonPath -Encoding UTF8
 
 Write-Host "  Token saved as '$role' in rest-client.env.json"
-
-# .\update-token.ps1 -username "admin" -password "admin" -role "token_admin"
-# .\update-token.ps1 -username "user" -password "user" -role "token_user"
