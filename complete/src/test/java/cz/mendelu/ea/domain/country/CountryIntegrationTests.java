@@ -153,4 +153,49 @@ public class CountryIntegrationTests {
                 .then()
                 .statusCode(404);
     }
+    @Test
+    public void testUpdateCountry() {
+        // Nejprve vytvořím novou zemi
+        var newCountry = """
+        {
+            "name": "Poland"
+        }
+        """;
+
+        int id = given()
+                .contentType(ContentType.JSON)
+                .body(newCountry)
+                .when()
+                .post("/countries")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("content.id");
+
+        // Změna názvu země přes PUT
+        var update = """
+        {
+            "name": "Polska"
+        }
+        """;
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(update)
+                .when()
+                .put("/countries/" + id)
+                .then()
+                .statusCode(200)
+                .body("content.id", is(id))
+                .body("content.name", is("Polska"));
+
+        // Kontrola, že změna proběhla
+        given()
+                .when()
+                .get("/countries/" + id)
+                .then()
+                .statusCode(200)
+                .body("content.name", is("Polska"));
+    }
+
 }

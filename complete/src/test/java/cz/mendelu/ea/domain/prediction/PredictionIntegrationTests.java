@@ -134,4 +134,69 @@ public class PredictionIntegrationTests {
                 .then()
                 .statusCode(404);
     }
+    @Test
+    public void testUpdatePrediction() {
+        // Nejprve vytvoříme predikci
+        var json = """
+        {
+          "countryId": 1,
+          "year": 2030
+        }
+        """;
+
+        int id = given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .when()
+                .post("/predictions")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("content.id");
+
+        // Provedeme update
+        var updated = """
+        {
+          "countryId": 1,
+          "year": 2035
+        }
+        """;
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(updated)
+                .when()
+                .put("/predictions/" + id)
+                .then()
+                .statusCode(202)
+                .body("content.id", is(id))
+                .body("content.year", is(2035));
+
+        // Kontrola změny
+        given()
+                .when()
+                .get("/predictions/" + id)
+                .then()
+                .statusCode(200)
+                .body("content.year", is(2035));
+    }
+    @Test
+    public void testPredictionCalculateOnly() {
+        var json = """
+        {
+          "countryId": 1,
+          "year": 2040
+        }
+        """;
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .when()
+                .post("/predictions/predict")
+                .then()
+                .statusCode(200)
+                .body("content.year", is(2040));
+    }
+
 }

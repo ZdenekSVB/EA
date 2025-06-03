@@ -138,4 +138,61 @@ public class HappinessIntegrationTests {
                 .then()
                 .statusCode(404);
     }
+    @Test
+    public void testUpdateHappiness() {
+        // Nejprve vytvoříme nový záznam
+        var happinessJson = """
+        {
+          "countryId": 1,
+          "year": 2023,
+          "rank": 15,
+          "happinessScore": 7.0,
+          "gdp": 1.2,
+          "socialSupport": 2.1
+        }
+        """;
+
+        int id = given()
+                .contentType(ContentType.JSON)
+                .body(happinessJson)
+                .when()
+                .post("/happiness")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("content.id");
+
+        // Provedeme update
+        var updatedJson = """
+        {
+          "countryId": 1,
+          "year": 2023,
+          "rank": 10,
+          "happinessScore": 7.5,
+          "gdp": 1.5,
+          "socialSupport": 2.5
+        }
+        """;
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(updatedJson)
+                .when()
+                .put("/happiness/" + id)
+                .then()
+                .statusCode(202)
+                .body("content.id", is(id))
+                .body("content.rank", is(10))
+                .body("content.happinessScore", is(7.5f)); // pozor na float/double
+
+        // Kontrola změn
+        given()
+                .when()
+                .get("/happiness/" + id)
+                .then()
+                .statusCode(200)
+                .body("content.rank", is(10))
+                .body("content.happinessScore", is(7.5f));
+    }
+
 }

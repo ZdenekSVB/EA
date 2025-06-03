@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.lessThan;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -52,4 +53,30 @@ public class CountryPerformanceTests {
                 .statusCode(201)
                 .time(lessThan(1000L));
     }
+
+    @Test
+    public void getAllCountries_Performance_Multi() {
+        int iterations = 10;
+        long maxAllowed = 2000L; // ms
+        long sum = 0;
+        long max = 0;
+        long min = Long.MAX_VALUE;
+
+        for (int i = 0; i < iterations; i++) {
+            long start = System.currentTimeMillis();
+            given()
+                    .when()
+                    .get("/countries")
+                    .then()
+                    .statusCode(200);
+            long duration = System.currentTimeMillis() + 1 - start;
+            sum += duration;
+            max = Math.max(max, duration);
+            min = Math.min(min, duration);
+            assertTrue(duration < maxAllowed, "Request " + (i+1) + " took too long: " + duration + " ms");
+        }
+        long avg = sum / iterations;
+        System.out.printf("Countries GET performance: avg=%d ms, min=%d ms, max=%d ms\n", avg, min, max);
+    }
+
 }

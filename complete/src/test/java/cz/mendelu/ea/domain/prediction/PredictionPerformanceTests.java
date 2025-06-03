@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.lessThan;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -27,30 +27,61 @@ public class PredictionPerformanceTests {
     }
 
     @Test
-    public void getAllPredictions_Performance() {
-        given()
-                .when()
-                .get("/predictions")
-                .then()
-                .statusCode(200)
-                .time(lessThan(1000L));
+    public void getAllPredictions_Performance_Multi() {
+        int iterations = 10;
+        long maxAllowed = 1000L; // ms
+        long sum = 0;
+        long max = 0;
+        long min = Long.MAX_VALUE;
+
+        for (int i = 0; i < iterations; i++) {
+            long start = System.currentTimeMillis();
+            given()
+                    .when()
+                    .get("/predictions")
+                    .then()
+                    .statusCode(200);
+            long duration = System.currentTimeMillis() - start;
+            sum += duration;
+            max = Math.max(max, duration);
+            min = Math.min(min, duration);
+            assertTrue(duration < maxAllowed, "GET /predictions request " + (i+1) + " took too long: " + duration + " ms");
+        }
+        long avg = sum / iterations;
+        System.out.printf("Predictions GET performance: avg=%d ms, min=%d ms, max=%d ms\n", avg, min, max);
     }
 
     @Test
-    public void createPrediction_Performance() {
-        var json = """
-                {
-                  "countryId": 1,
-                  "year": %d
-                }
-                """.formatted(3000 + (int) (System.currentTimeMillis() % 1000));
-        given()
-                .contentType(ContentType.JSON)
-                .body(json)
-                .when()
-                .post("/predictions")
-                .then()
-                .statusCode(201)
-                .time(lessThan(2000L));
+    public void createPrediction_Performance_Multi() {
+        int iterations = 5;
+        long maxAllowed = 2000L;
+        long sum = 0;
+        long max = 0;
+        long min = Long.MAX_VALUE;
+
+        for (int i = 0; i < iterations; i++) {
+            var json = """
+                    {
+                      "countryId": 1,
+                      "year": %d
+                    }
+                    """.formatted(3000 + i);
+
+            long start = System.currentTimeMillis();
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(json)
+                    .when()
+                    .post("/predictions")
+                    .then()
+                    .statusCode(201);
+            long duration = System.currentTimeMillis() - start;
+            sum += duration;
+            max = Math.max(max, duration);
+            min = Math.min(min, duration);
+            assertTrue(duration < maxAllowed, "POST /predictions request " + (i+1) + " took too long: " + duration + " ms");
+        }
+        long avg = sum / iterations;
+        System.out.printf("Predictions POST performance: avg=%d ms, min=%d ms, max=%d ms\n", avg, min, max);
     }
 }
