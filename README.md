@@ -1,5 +1,7 @@
 # EA REST API
 
+Enterprise aplikace zaměřená na REST API komunikaci, zabezpečení a testování
+
 ## Hlavní entity
 
 * **Country**: stát (unikátní jméno)
